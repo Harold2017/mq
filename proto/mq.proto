@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package mq;
+
+service MessageQueue {
+    rpc Publish(PubMsg) returns (PubResp) {}
+
+    // server-side stream
+    rpc Subscribe(SubMsg) returns (stream SubResp) {}
+}
+
+message PubMsg {
+    string topic = 1;
+    bytes payload = 2;
+}
+
+message PubResp {
+    // empty
+}
+
+message SubMsg {
+    string topic = 1;
+}
+
+message SubResp {
+    bytes payload = 1;
+}
