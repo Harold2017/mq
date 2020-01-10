@@ -2,8 +2,8 @@ package main
 
 import (
 	"log"
-	"mq/client"
-	"mq/server"
+	"mq/withbroker/client"
+	"mq/withbroker/server"
 	"time"
 )
 
@@ -56,7 +56,7 @@ func main() {
 	if err != nil {
 		log.Println(err)
 	}
-	if msg!= string(payload) {
+	if msg != string(payload) {
 		log.Println(msg)
 	} else {
 		log.Println("successfully recv: ", msg)

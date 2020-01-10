@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc/peer"
 	"google.golang.org/grpc/reflection"
 	"log"
-	"mq/broker"
-	pb "mq/proto"
+	"mq/withbroker/broker"
+	pb "mq/withbroker/proto"
 	"net"
 )
 
@@ -34,7 +34,7 @@ func (s *server) Subscribe(in *pb.SubMsg, stream pb.MessageQueue_SubscribeServer
 	}()
 
 	for payload := range sub {
-		if err := stream.Send(&pb.SubResp{Payload:payload}); err != nil {
+		if err := stream.Send(&pb.SubResp{Payload: payload}); err != nil {
 			return errors.New("[Server Subscribe Send] error: " + err.Error())
 		}
 	}

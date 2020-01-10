@@ -1,9 +1,19 @@
 #
 
-## Simple In-memory Message Queue
+## A Toy of In-memory Message Queue
 
-Queue based on buffered chan
+- `withbroker`:
 
-Client / Server communicates based on GRPC
+    Queue based on buffered chan
 
-see `main.go` for example
+    Client / Server communicates based on GRPC
+
+    see `main.go` for example
+
+- `withoutbroker`:
+
+    Pub / Sub based on sockets
+    
+    this is NOT a mq
+    
+    see `main.go` for example

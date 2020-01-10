@@ -6,13 +6,13 @@ import (
 	"fmt"
 	"google.golang.org/grpc"
 	rpb "google.golang.org/grpc/reflection/grpc_reflection_v1alpha"
-	pb "mq/proto"
+	"mq/withbroker/proto"
 	"sync"
 	"time"
 )
 
 // DefaultReadMsgTimeout ...
-const DefaultReadMsgTimeout =  10 * time.Millisecond
+const DefaultReadMsgTimeout = 10 * time.Millisecond
 
 type Client struct {
 	serverAddr string
@@ -52,10 +52,10 @@ func (c *Client) Publish(topic string, payload []byte) error {
 	}
 	defer conn.Close()
 
-	client := pb.NewMessageQueueClient(conn)
-	_, err = client.Publish(context.TODO(), &pb.PubMsg{
-		Topic:                topic,
-		Payload:              payload,
+	client := mq.NewMessageQueueClient(conn)
+	_, err = client.Publish(context.TODO(), &mq.PubMsg{
+		Topic:   topic,
+		Payload: payload,
 	})
 
 	return err
@@ -78,8 +78,8 @@ func (c *Client) Subscribe(topic string) error {
 		}
 	}()
 
-	client := pb.NewMessageQueueClient(conn)
-	sub, err := client.Subscribe(context.TODO(), &pb.SubMsg{Topic:topic})
+	client := mq.NewMessageQueueClient(conn)
+	sub, err := client.Subscribe(context.TODO(), &mq.SubMsg{Topic: topic})
 	if err != nil {
 		return err
 	}
